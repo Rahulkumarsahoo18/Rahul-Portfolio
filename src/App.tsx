@@ -31,7 +31,6 @@ function App() {
   const [dark, setDark] = useState(true);
   const [menuOpen, setMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('Home');
-  const [typedText, setTypedText] = useState('intelligent digital experiences');
   const [contactSent, setContactSent] = useState(false);
 
   useEffect(() => {
@@ -41,38 +40,6 @@ function App() {
     document.querySelectorAll('section[id]').forEach((section) => sectionObserver.observe(section));
     return () => { revealObserver.disconnect(); sectionObserver.disconnect(); };
   }, []);
-
-  useEffect(() => {
-  const phrases = [
-    'Building intelligent solutions',
-    'Exploring AI & Generative AI',
-    'Turning ideas into working software',
-    'Learning. Building. Evolving.'
-  ];
-
-  let phraseIndex = 0;
-  let characterIndex = 0;
-  let deleting = false;
-
-  const timer = window.setInterval(() => {
-    const phrase = phrases[phraseIndex];
-
-    characterIndex += deleting ? -1 : 1;
-
-    setTypedText(phrase.slice(0, characterIndex));
-
-    if (characterIndex === phrase.length) {
-      deleting = true;
-    }
-
-    if (characterIndex === 0 && deleting) {
-      deleting = false;
-      phraseIndex = (phraseIndex + 1) % phrases.length;
-    }
-  }, deleting ? 45 : 90);
-
-  return () => window.clearInterval(timer);
-}, [typedText]);
 
   function sendToWhatsApp(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -88,7 +55,13 @@ function App() {
       <div className="noise" aria-hidden="true" /><div className="ambient ambient-one" aria-hidden="true" /><div className="ambient ambient-two" aria-hidden="true" />
       <header className="topbar"><a className="brand" href="#home"><span className="brand-mark">RK</span><span className="brand-name">rahul<span>.</span></span></a><nav className={menuOpen ? 'nav-links open' : 'nav-links'}>{navItems.map((item) => <a key={item} className={activeSection === item ? 'active' : ''} href={`#${item.toLowerCase()}`} onClick={() => setMenuOpen(false)}>{item}</a>)}</nav><div className="top-actions"><button className="icon-button" onClick={() => setDark((value) => !value)} aria-label="Toggle color mode">{dark ? <Sun size={17} /> : <Moon size={17} />}</button><a className="button button-small button-outline desktop-cta" href="#contact">Let's talk <ArrowUpRight size={15} /></a><button className="icon-button menu-button" onClick={() => setMenuOpen((value) => !value)} aria-label="Toggle navigation">{menuOpen ? <X size={19} /> : <Menu size={19} />}</button></div></header>
       <main>
-        <section className="hero section-shell" id="home" data-label="Home"><div className="hero-grid" /><div className="hero-copy reveal"><div className="eyebrow"><span className="status-dot" /> Available for learning & collaboration <span className="eyebrow-line" /></div><p className="hero-kicker">Hello, I’m Rahul Kumar Sahoo</p><h1>Building <em>{typedText}</em><span className="cursor">|</span></h1><p className="hero-description">A Computer Science student from Bhubaneswar exploring the space where thoughtful software, data, and artificial intelligence meet.</p><div className="hero-actions"><a href="#projects" className="button button-primary">Explore my work <ArrowDown size={16} /></a><a href={profile.resume} download className="button button-ghost">Download resume <Download size={16} /></a></div><div className="social-row"><span>Find me on</span><a href={profile.linkedin} target="_blank" rel="noreferrer" aria-label="LinkedIn"><Linkedin size={16} /></a><a href={profile.github} target="_blank" rel="noreferrer" aria-label="GitHub"><Github size={16} /></a><span className="line" /><span className="scroll-note">Scroll to discover <ArrowDown size={14} /></span></div></div><div className="hero-visual reveal reveal-delay"><div className="orbit orbit-one" /><div className="orbit orbit-two" /><div className="portrait-wrap"><div className="portrait-glow" /><img src={profile.photo} alt="Rahul Kumar Sahoo" /><div className="portrait-shine" /></div><div className="floating-card card-top"><Sparkles size={14} /><span>Learning by<br /><strong>building</strong></span></div><div className="floating-card card-bottom"><span className="mini-label">CURRENT FOCUS</span><strong>AI / GenAI</strong><span className="card-arrow"><ArrowUpRight size={14} /></span></div><div className="hero-index">01 <span>/</span> 04</div></div><div className="hero-scroll-label">SCROLL TO EXPLORE <span /></div></section>
+        <section className="hero section-shell" id="home" data-label="Home"><div className="hero-grid" /><div className="hero-copy reveal"><div className="eyebrow"><span className="status-dot" /> Available for learning & collaboration <span className="eyebrow-line" /></div><p className="hero-kicker">Hello, I’m Rahul Kumar Sahoo</p><h1>Building <em>{<div className="hero-highlight">
+  <span className="highlight-item">AI & GENAI</span>
+  <span className="highlight-dot">•</span>
+  <span className="highlight-item">FULL-STACK DEVELOPER</span>
+  <span className="highlight-dot">•</span>
+  <span className="highlight-item">PYTHON</span>
+</div>}</em><span className="cursor">|</span></h1><p className="hero-description">A Computer Science student from Bhubaneswar exploring the space where thoughtful software, data, and artificial intelligence meet.</p><div className="hero-actions"><a href="#projects" className="button button-primary">Explore my work <ArrowDown size={16} /></a><a href={profile.resume} download className="button button-ghost">Download resume <Download size={16} /></a></div><div className="social-row"><span>Find me on</span><a href={profile.linkedin} target="_blank" rel="noreferrer" aria-label="LinkedIn"><Linkedin size={16} /></a><a href={profile.github} target="_blank" rel="noreferrer" aria-label="GitHub"><Github size={16} /></a><span className="line" /><span className="scroll-note">Scroll to discover <ArrowDown size={14} /></span></div></div><div className="hero-visual reveal reveal-delay"><div className="orbit orbit-one" /><div className="orbit orbit-two" /><div className="portrait-wrap"><div className="portrait-glow" /><img src={profile.photo} alt="Rahul Kumar Sahoo" /><div className="portrait-shine" /></div><div className="floating-card card-top"><Sparkles size={14} /><span>Learning by<br /><strong>building</strong></span></div><div className="floating-card card-bottom"><span className="mini-label">CURRENT FOCUS</span><strong>AI / GenAI</strong><span className="card-arrow"><ArrowUpRight size={14} /></span></div><div className="hero-index">01 <span>/</span> 04</div></div><div className="hero-scroll-label">SCROLL TO EXPLORE <span /></div></section>
         <section className="ticker" aria-label="Areas of interest"><div className="ticker-track"><span>SOFTWARE DEVELOPMENT</span><i>✦</i><span>ARTIFICIAL INTELLIGENCE</span><i>✦</i><span>WEB DEVELOPMENT</span><i>✦</i><span>DATA & MACHINE LEARNING</span><i>✦</i><span>SOFTWARE DEVELOPMENT</span><i>✦</i></div></section>
         <section className="section-shell about-section" id="about" data-label="About"><div className="section-heading reveal"><span className="section-number">01 / 06</span><div><p className="eyebrow">A little about me</p><h2>Curious mind.<br /><span>Builder’s energy.</span></h2></div><p className="heading-note">I’m at the beginning of a long, exciting journey — and I’m making every line of code count.</p></div><div className="about-grid"><div className="about-statement reveal"><p className="large-copy">I’m a <span>Computer Science & Engineering student</span> at GIFT Autonomous, Bhubaneswar, with a growing interest in creating software that feels useful, intuitive, and a little bit magical.</p><p>From Java applications to machine learning experiments, I enjoy breaking down complex ideas and turning them into practical experiences. My current curiosity lives at the intersection of web development, AI, and the human problems technology can solve.</p><a className="text-link" href="#contact">Let’s create something thoughtful <ArrowUpRight size={16} /></a></div><div className="about-facts reveal reveal-delay"><div className="fact-card"><span className="fact-icon"><GraduationCap size={19} /></span><span><small>EDUCATION</small><strong>B.Tech CSE</strong><em>{profile.college}</em></span></div><div className="fact-card"><span className="fact-icon"><MapPin size={19} /></span><span><small>BASED IN</small><strong>Bhubaneswar</strong><em>Odisha, India</em></span></div><div className="fact-card"><span className="fact-icon"><Zap size={19} /></span><span><small>EXPLORING</small><strong>AI / GenAI</strong><em>One project at a time</em></span></div></div></div></section>
         <section className="section-shell skills-section" id="skills" data-label="Skills"><div className="section-heading compact reveal"><span className="section-number">02 / 06</span><div><p className="eyebrow">The toolkit</p><h2>Skills with intent.</h2></div><p className="heading-note">A foundation in code, a curiosity for systems, and the patience to keep learning.</p></div><div className="skills-grid">{skillGroups.map(({ label, icon: Icon, items }, index) => <div className="skill-card reveal" style={{ animationDelay: `${index * 80}ms` }} key={label}><div className="skill-card-top"><Icon size={20} /><span>0{index + 1}</span></div><h3>{label}</h3><div className="tag-list">{items.map((item) => <span key={item}>{item}</span>)}</div><div className="skill-line" /></div>)}</div><div className="learning-strip reveal"><div><span className="strip-icon"><BrainCircuit size={20} /></span><span><small>ALWAYS LEARNING</small><strong>Problem solving · Data structures · Algorithms</strong></span></div><span className="strip-mark">∞</span></div></section>
