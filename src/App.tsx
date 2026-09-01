@@ -43,17 +43,36 @@ function App() {
   }, []);
 
   useEffect(() => {
-    const phrases = ['intelligent digital experiences', 'clean, useful products', 'the future of web + AI'];
-    let phraseIndex = 0; let characterIndex = 0; let deleting = false;
-    const timer = window.setInterval(() => {
-      const phrase = phrases[phraseIndex];
-      characterIndex += deleting ? -1 : 1;
-      setTypedText(phrase.slice(0, characterIndex));
-      if (characterIndex === phrase.length) deleting = true;
-      if (characterIndex === 0 && deleting) { deleting = false; phraseIndex = (phraseIndex + 1) % phrases.length; }
-    }, deleting ? 45 : 90);
-    return () => window.clearInterval(timer);
-  }, [typedText]);
+  const phrases = [
+    'Building intelligent solutions',
+    'Exploring AI & Generative AI',
+    'Turning ideas into working software',
+    'Learning. Building. Evolving.'
+  ];
+
+  let phraseIndex = 0;
+  let characterIndex = 0;
+  let deleting = false;
+
+  const timer = window.setInterval(() => {
+    const phrase = phrases[phraseIndex];
+
+    characterIndex += deleting ? -1 : 1;
+
+    setTypedText(phrase.slice(0, characterIndex));
+
+    if (characterIndex === phrase.length) {
+      deleting = true;
+    }
+
+    if (characterIndex === 0 && deleting) {
+      deleting = false;
+      phraseIndex = (phraseIndex + 1) % phrases.length;
+    }
+  }, deleting ? 45 : 90);
+
+  return () => window.clearInterval(timer);
+}, [typedText]);
 
   function sendToWhatsApp(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
